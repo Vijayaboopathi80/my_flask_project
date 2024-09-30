@@ -85,9 +85,16 @@ def login():
 
     return render_template('login.html')
 
-@app.route('/home')
+@app.route('/home',methods=['GET', 'POST'])
 def home():
-          return render_template('home.html')
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        return render_template('home.html')
+    else:
+         flash("Access denied. Admins only.", "error")
+         return redirect(url_for('login'))
+        
    
 
 @app.route('/admin')
